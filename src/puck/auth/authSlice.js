@@ -1,5 +1,5 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
-import {register,login, withGoogle} from './authService'
+import {register,login} from './authService'
 // get user from local storage
 const user = JSON.parse(localStorage.getItem('user'));
 
@@ -22,15 +22,6 @@ export const registerUser = createAsyncThunk('auth/register', async (user, thunk
     }
 })
 
-export const withGoogleRed = createAsyncThunk('auth/withGoogle', async (thunkAPI)=>{
-    try {
-        return await withGoogle();
-    }
-    catch(error){
-        const message = (error.response && error.response.data && error.response.data.message) || error.toString() || error.message
-        return thunkAPI.rejectWithValue({message})
-    }
-})
 
 export const loginUser = createAsyncThunk('auth/login', async (user, thunkAPI)=>{
     try {
