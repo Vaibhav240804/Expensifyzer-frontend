@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import html2pdf from "html2pdf.js"; // Import the html2pdf library
 import { toast } from "react-toastify";
 import { getExpenses, wipeWeekly } from "./puck/Expenses/ExpenseSlice";
+import WeeklySpin from "./WeeklySpinner";
 
 let count = 0;
 
@@ -54,6 +55,17 @@ const ExpenseReport = () => {
     }
   }, [staeExpenses, log, Data]);
 
+    const { isweeklyloading} = useSelector(
+    (state) => state.expenses
+    );
+    if(isweeklyloading){
+    return (
+      <div className="bg-white mt-4 h-screen w-screen flex flex-col justify-around items-center">
+        <WeeklySpin />
+      </div>
+    )
+
+  }
   const appendData = (expenses, dates) => {
     const parentContainer = document.getElementById("weely-container");
     const child = document.getElementById("weekly-report-inner");
